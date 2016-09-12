@@ -1,0 +1,5 @@
+F:\Games\TreaslandLib\TreaslandLib\obj\Debug\TreaslandLib.csprojResolveAssemblyReference.cache
+F:\Games\TreaslandLib\TreaslandLib\bin\Debug\TreaslandLib.dll
+F:\Games\TreaslandLib\TreaslandLib\bin\Debug\TreaslandLib.pdb
+F:\Games\TreaslandLib\TreaslandLib\obj\Debug\TreaslandLib.dll
+F:\Games\TreaslandLib\TreaslandLib\obj\Debug\TreaslandLib.pdb
