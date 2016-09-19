@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="TreaslandLib/TreaslandLib.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TreaslandLib/Algorithms/AStar.cs">
+    <Files>
+      <File FileName="TreaslandLib/Algorithms/AStar.cs" Line="16" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
