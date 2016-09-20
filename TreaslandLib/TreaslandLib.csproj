@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Listeners.cs" />
     <Compile Include="Json.Net\Bson\BsonBinaryType.cs" />
     <Compile Include="Json.Net\Bson\BsonBinaryWriter.cs" />
     <Compile Include="Json.Net\Bson\BsonObjectId.cs" />
@@ -244,8 +245,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Algorithms\" />
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
