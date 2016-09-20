@@ -286,7 +286,6 @@ namespace TreaslandLib.Algorithms.AStar
             int nX = 0;
             int nY = 0;
 
-
             // left
             nX = currPoint.x - 1;
             nY = currPoint.y;
