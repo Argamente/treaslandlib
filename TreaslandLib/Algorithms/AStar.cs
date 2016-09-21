@@ -112,7 +112,7 @@ namespace TreaslandLib.Algorithms.AStar
         private List<Point> finalWays = new List<Point>();
 
         // point to game world map grids
-        private Dictionary<int, Dictionary<int, Point>> map = null;
+        private Dictionary<int, Dictionary<int, object>> map = null;
         private Point startPoint = null;
         private Point goalPoint = null;
 
@@ -127,7 +127,24 @@ namespace TreaslandLib.Algorithms.AStar
 
         private Listener<List<Point>> onWayFound = null;
 
-        public void Init (Dictionary<int, Dictionary<int, Point>> _map, 
+
+        ~AStar()
+        {
+            openList.Clear();
+            openList = null;
+            openDict.Clear();
+            openDict = null;
+            closeList.Clear();
+            closeList = null;
+            closeDict.Clear();
+            closeDict = null;
+        }
+
+
+
+
+
+        public void Init (Dictionary<int, Dictionary<int, object>> _map, 
             Point _startPoint, 
             Point _goalPoint,
             Box _border,
@@ -158,7 +175,7 @@ namespace TreaslandLib.Algorithms.AStar
             }
         }
 
-        IEnumerator CalculatePath()
+        public IEnumerator CalculatePath()
         {
             if (this.startPoint == null && this.goalPoint == null)
             {
@@ -206,7 +223,7 @@ namespace TreaslandLib.Algorithms.AStar
                 while (this.openList.Count > 0)
                 {
                     Point currentPoint = GetAndRemoveMinFPointFromOpenList();
-                    this.closeList.Add(currentPoint);
+                    AddPointToCloseList(currentPoint);
                     // ok , the way found
                     if (currentPoint.x == this.goalPoint.x && currentPoint.y == this.goalPoint.y)
                     {
@@ -221,64 +238,64 @@ namespace TreaslandLib.Algorithms.AStar
         }
 
 
-        private void Calcuate ()
-        {
-            if (this.startPoint == null && this.goalPoint == null)
-            {
-                Log.Error (this, "startPoint and goalPoint can not be null");
-                return;
-            }
-            else if (this.startPoint == null)
-            {
-                Log.Error (this, "startPoint can not be null");
-                return;
-            }
-            else if (this.goalPoint == null)
-            {
-                Log.Error (this, "goalPoint can not be null");
-                return;
-            }
+        //private void Calcuate ()
+        //{
+        //    if (this.startPoint == null && this.goalPoint == null)
+        //    {
+        //        Log.Error (this, "startPoint and goalPoint can not be null");
+        //        return;
+        //    }
+        //    else if (this.startPoint == null)
+        //    {
+        //        Log.Error (this, "startPoint can not be null");
+        //        return;
+        //    }
+        //    else if (this.goalPoint == null)
+        //    {
+        //        Log.Error (this, "goalPoint can not be null");
+        //        return;
+        //    }
 
-            this.isFoundWay = false;
-            this.openList.Clear();
-            this.closeList.Clear();
-            this.openDict.Clear();
-            this.closeDict.Clear();
+        //    this.isFoundWay = false;
+        //    this.openList.Clear();
+        //    this.closeList.Clear();
+        //    this.openDict.Clear();
+        //    this.closeDict.Clear();
 
-            this.startPoint.CalculateG(0, 0);
-            this.startPoint.CalculateH(this.goalPoint, this.basePointCostValue);
-            this.startPoint.CalculateF();
+        //    this.startPoint.CalculateG(0, 0);
+        //    this.startPoint.CalculateH(this.goalPoint, this.basePointCostValue);
+        //    this.startPoint.CalculateF();
 
-            // step 1 , add start point to the open list
-            AddPointToOpenList (this.startPoint);
+        //    // step 1 , add start point to the open list
+        //    AddPointToOpenList (this.startPoint);
 
-            // loop
-            // 1. find min cost point A from open list and remove it from open list
-            //    if A is the goal , then finished
-            //    else add A to close list
-            // 2. find all neighbors Na , 
-            // 3. if the neighbor Na is not in open list, then calculate the g h f of Na, and set Na's parent as A, then add Na to open list
-            //    else if the neighbor is already in open list, calculate g' from A to Na, compare origin g of Na and new g', if g' is less than g, 
-            //    then set g as g', set Na's parent as A, recalculate f of Na; if g' is not less than g, then do thing 
-            // 4. back loop
-            // 
-            // now is 2016.09.20 00:01:46, i think i need to sleep, because i want get up early and go to KFC eat breakfast,
-            // so , tomorrow i'll finish this A* algorithm module
+        //    // loop
+        //    // 1. find min cost point A from open list and remove it from open list
+        //    //    if A is the goal , then finished
+        //    //    else add A to close list
+        //    // 2. find all neighbors Na , 
+        //    // 3. if the neighbor Na is not in open list, then calculate the g h f of Na, and set Na's parent as A, then add Na to open list
+        //    //    else if the neighbor is already in open list, calculate g' from A to Na, compare origin g of Na and new g', if g' is less than g, 
+        //    //    then set g as g', set Na's parent as A, recalculate f of Na; if g' is not less than g, then do thing 
+        //    // 4. back loop
+        //    // 
+        //    // now is 2016.09.20 00:01:46, i think i need to sleep, because i want get up early and go to KFC eat breakfast,
+        //    // so , tomorrow i'll finish this A* algorithm module
 
-            while (this.openList.Count > 0)
-            {
-                Point currentPoint = GetAndRemoveMinFPointFromOpenList();
-                this.closeList.Add(currentPoint);
-                // ok , the way found
-                if(currentPoint.x == this.goalPoint.x && currentPoint.y == this.goalPoint.y)
-                {
-                    this.isFoundWay = true;
-                    SetTheFianlWays(currentPoint);
-                    break;
-                }
-                ProcessNeighbors(currentPoint);
-            }
-        }
+        //    while (this.openList.Count > 0)
+        //    {
+        //        Point currentPoint = GetAndRemoveMinFPointFromOpenList();
+        //        AddPointToCloseList(currentPoint);
+        //        // ok , the way found
+        //        if(currentPoint.x == this.goalPoint.x && currentPoint.y == this.goalPoint.y)
+        //        {
+        //            this.isFoundWay = true;
+        //            SetTheFianlWays(currentPoint);
+        //            break;
+        //        }
+        //        ProcessNeighbors(currentPoint);
+        //    }
+        //}
 
 
         private void ProcessNeighbors(Point currPoint)
@@ -345,6 +362,11 @@ namespace TreaslandLib.Algorithms.AStar
             Point neighbor = null;
             if (IsAvaliableWayPoint(nX, nY))
             {
+                if (IsPointInCloseList(nX, nY))
+                {
+                    return;
+                }
+
                 neighbor = TryPeekPointFromOpenList(nX, nY);
                 if (neighbor == null)
                 {
@@ -411,6 +433,8 @@ namespace TreaslandLib.Algorithms.AStar
         /// <returns></returns>
         private bool IsOutOfMap(int x, int y)
         {
+            return false;
+
             bool result = false;
             // out left
             if(x <= this.border.borderLeft)
@@ -520,26 +544,64 @@ namespace TreaslandLib.Algorithms.AStar
         }
 
 
+        private void AddPointToCloseList(Point p)
+        {
+            this.closeList.Add(p);
+
+            if (!this.closeDict.ContainsKey(p.x))
+            {
+                this.closeDict.Add(p.x, new Dictionary<int, Point>());
+            }
+            this.closeDict[p.x].Add(p.y, p);
+        }
+
+
+        private bool IsPointInCloseList(int x, int y)
+        {
+            if(this.closeDict.ContainsKey(x) && this.closeDict[x].ContainsKey(y))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
         /// <summary>
         /// return the min f item from open list, and remove it from open list
         /// </summary>
         /// <returns></returns>
         private Point GetAndRemoveMinFPointFromOpenList()
         {
-            int index = this.openList.Count - 1;
-            if(index >= 0)
+            int index = 0;
+            int minF = this.openList[0].f;
+            for(int i = 0; i < this.openList.Count; ++i)
             {
-                Point p = this.openList[index];
-                this.openList.RemoveAt(index);
+                if(this.openList[i].f < minF)
+                {
+                    index = i;
+                    minF = this.openList[i].f;
+                }
 
-                this.openDict[p.x].Remove(p.y);
+            }
+            Point result = this.openList[index];
+            this.openList.RemoveAt(index);
+            this.openDict[result.x].Remove(result.y);
+            return result;
+            //int index = this.openList.Count - 1;
+            //if(index >= 0)
+            //{
+            //    Point p = this.openList[index];
+            //    this.openList.RemoveAt(index);
 
-                return p;
-            }
-            else
-            {
-                return null;
-            }
+            //    this.openDict[p.x].Remove(p.y);
+
+            //    return p;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
         }
 
 
