@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TreaslandLib.Utils;
 using System;
 using TreaslandLib.Core;
+using TreaslandLib.Unity3D.Utils;
 
 namespace TreaslandLib.Algorithms.AStar
 {

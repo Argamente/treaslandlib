@@ -238,10 +238,12 @@
     <Compile Include="Json.Net\WriteState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algorithms\AStar.cs" />
+    <Compile Include="Unity3D\Core\App.cs" />
     <Compile Include="Unity3D\Core\PathConfig.cs" />
     <Compile Include="Unity3D\Managers\ConstantHolder.cs" />
     <Compile Include="Unity3D\Utils\Log.cs" />
     <Compile Include="Unity3D\Utils\PlatformUtils.cs" />
+    <Compile Include="Utils\IOUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -251,7 +253,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

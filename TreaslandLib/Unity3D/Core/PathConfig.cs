@@ -50,7 +50,9 @@ namespace TreaslandLib.Unity3D.Core
             // 存放用户数据的路径，Win平台下存放于 %appdata% 目录下，即Roaming目录下
             if (PlatformUtils.isWinPlatform)
             {
-
+                PathConfig.userDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                PathConfig.userDataPath += "/" + App.companyName + "/" + App.productName;
+                PathConfig.userDataPath = PathConfig.userDataPath.Replace("\\", "/");
             }
             else
             {

@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using System.IO;
+using TreaslandLib.Unity3D.Core;
+using TreaslandLib.Utils;
 
 namespace TreaslandLib.Unity3D.Utils
 {
@@ -14,25 +16,28 @@ namespace TreaslandLib.Unity3D.Utils
 
     public class Log
     {
+        private const string File_INFO = "Info";
+        private const string File_Error = "Error";
+        private const string File_Fatal = "Fatal";
+        private const string File_Wraning = "Warning";
+
         static public void Write (string _logFileName, object _class, params object[] logValues)
         {
-            
+            log(_logFileName, _class, enLogType.Info, logValues);
         }
 
         static public void Info (object _class, params object[] logValues)
         {
-            string str = GetDebugString(_class, logValues);
-            Debug.Log(str);
+            log(File_INFO, _class, enLogType.Info, logValues);
         }
 
         static public void Error (object _class, params object[] logValues)
         {
-            string str = GetDebugString(_class, logValues);
-            Debug.LogError(str);    
+            log(File_Error, _class, enLogType.Error, logValues);
         }
 
 
-        private static void log(object _class, enLogType logType, object[] values)
+        private static void log(string _logFileName, object _class, enLogType logType, object[] values)
         {
             string logStr = GetDebugString(_class, values);
 
@@ -58,7 +63,8 @@ namespace TreaslandLib.Unity3D.Utils
 
             try
             {
-                
+                string fileName = PathConfig.userDataPath + "/Log/Unity/" + _logFileName + ".log";
+                IOUtils.AppendTextFile(fileName, logStr + "\n");
             }
             catch(Exception e)
             {
