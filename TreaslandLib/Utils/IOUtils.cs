@@ -13,7 +13,7 @@ namespace TreaslandLib.Utils
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public string OpenTextFile(string filePath, System.Text.Encoding encoding = null)
+        public static string OpenTextFile(string filePath, System.Text.Encoding encoding = null)
         {
             if (File.Exists(filePath))
             {
@@ -37,7 +37,7 @@ namespace TreaslandLib.Utils
         /// <param name="filePath"></param>
         /// <param name="text"></param>
         /// <param name="encoding"></param>
-        public void WriteTextFile(string filePath, string text, System.Text.Encoding encoding = null)
+        public static void WriteTextFile(string filePath, string text, System.Text.Encoding encoding = null)
         {
             try
             {
